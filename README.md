@@ -13,3 +13,6 @@ nodeGroups:
   - name: ng-2
     instanceType: t3.small
     desiredCapacity: 2
+___
+cd  Reloader
+kubectl apply -f https://raw.githubusercontent.com/stakater/Reloader/master/deployments/kubernetes/reloader.yaml
