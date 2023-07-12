@@ -2,12 +2,22 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: work
-  region: us-east-2
+  name: clusters
+  region: us-west-1
 
-managedNodeGroups:
-- name: workgroup
-  instanceType: t2.micro
-  desiredCapacity: 2
-  minSize: 2
-  maxSize: 2
+nodeGroups:
+  - name: my-nodegroup
+    instanceType: t3.medium
+    desiredCapacity: 2
+    volumeSize: 20
+    privateNetworking: true
+    ---
+    #for connect 
+    aws sts get-caller-identity
+  pip install --upgrade awscli
+  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+  chmod +x kubectl
+  sudo mv kubectl /usr/local/bin/
+  mv ~/.kube/config ~/.kube/config_backup
+  aws eks update-kubeconfig --region us-east-2 --name clusters --kubeconfig ~/.kube/config
+  chmod 600 ~/.kube/config
